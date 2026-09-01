@@ -61,9 +61,10 @@ public class ApiV1PostController {
     @PostMapping
     @Transactional
     public RsData<PostDto> write(
-            @Valid @RequestBody PostWriteReqBody reqBody
+            @Valid @RequestBody PostWriteReqBody reqBody,
+            @RequestParam String username
     ) {
-        Member actor = memberService.findByUsername("user1").get();
+        Member actor = memberService.findByUsername(username).get();
 
         Post post = postService.write(actor, reqBody.title, reqBody.content);
         return new RsData<>(
