@@ -1,5 +1,6 @@
 package com.back.p67260811.domain.post.post.controller;
 
+import com.back.p67260811.domain.member.repository.MemberRepository;
 import com.back.p67260811.domain.post.post.entity.Post;
 import com.back.p67260811.domain.post.post.repository.PostRepository;
 import org.junit.jupiter.api.DisplayName;
@@ -30,6 +31,9 @@ public class ApiV1PostControllerTest {
 
     @Autowired
     private PostRepository postRepository;
+
+    @Autowired
+    private MemberRepository memberRepository;
 
     @Test
     @DisplayName("글 다건 조회")
@@ -170,6 +174,7 @@ public class ApiV1PostControllerTest {
         ResultActions resultActions = mvc
                 .perform(
                         delete("/api/v1/posts/%d".formatted(targetId))
+                                .header("Authorization", "Bearer user1")
                 )
                 .andDo(print());
 
@@ -196,6 +201,7 @@ public class ApiV1PostControllerTest {
                 .perform(
                         post("/api/v1/posts")
                                 .contentType(MediaType.APPLICATION_JSON)
+                                .header("Authorization", "Bearer user1")
                                 .content("""
                                         {
                                             "title": "%s",
@@ -227,6 +233,7 @@ public class ApiV1PostControllerTest {
                 .perform(
                         post("/api/v1/posts")
                                 .contentType(MediaType.APPLICATION_JSON)
+                                .header("Authorization", "Bearer user1")
                                 .content("""
                                         {
                                             "title": "%s",
