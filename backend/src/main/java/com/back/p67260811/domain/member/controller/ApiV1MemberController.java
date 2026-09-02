@@ -44,7 +44,6 @@ public class ApiV1MemberController {
     public RsData<MemberDto> join(
             @RequestBody @Valid JoinReqBody reqBody
     ) {
-
         Member member = memberService.join(reqBody.username, reqBody.password, reqBody.nickname);
 
         return new RsData(
