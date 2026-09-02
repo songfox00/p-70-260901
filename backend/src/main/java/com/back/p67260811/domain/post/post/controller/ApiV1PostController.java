@@ -63,7 +63,7 @@ public class ApiV1PostController {
     @Transactional
     public RsData<PostDto> write(
             @Valid @RequestBody PostWriteReqBody reqBody,
-            @RequestHeader("Authorization") String apiKey
+            @RequestHeader("Authorization") @NotBlank @Size(min=30, max=50) String apiKey
     ) {
 
         String authorization = apiKey.substring(7);
@@ -96,7 +96,7 @@ public class ApiV1PostController {
     public RsData<Void> modify(
             @PathVariable int id,
             @Valid @RequestBody PostModifyReqBody reqBody,
-            @RequestHeader("Authorization") String apiKey
+            @RequestHeader("Authorization") @NotBlank @Size(min=30, max=50) String apiKey
     ) {
         String authorization = apiKey.substring(7);
         Member actor = memberService.findByApiKey(authorization).orElseThrow(
